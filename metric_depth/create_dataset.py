@@ -1,5 +1,5 @@
 import cv2
-import torch
+import torch, gc
 import numpy as np
 import os
 import shutil
@@ -37,7 +37,7 @@ MAX_DEPTH = 80  # 80m cho mô hình ngoài trời (vkitti)
 FOG_LEVELS = {
     'foggy_medium': {
         'name': 'Sương mù Vừa',
-        'beta_min': 0.012,
+        'beta_min': 0.015,
         'beta_max': 0.025
     },
 
@@ -167,7 +167,8 @@ def main():
                 
                 # 1. Tạo depth map
                 depth_map = depth_model.infer_image(raw_img_rgb)
-                
+                torch.cuda.empty_cache()
+                gc.collect()
                 # 2. Ước lượng ánh sáng khí quyển
                 image_rgb_float = raw_img_rgb / 255.0
                 atmosphere_light = estimate_atmosphere_light(image_rgb_float)
