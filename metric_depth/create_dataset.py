@@ -20,9 +20,9 @@ except ImportError:
 
 # 1. ĐƯỜNG DẪN
 # !!! THAY ĐỔI CÁC ĐƯỜNG DẪN NÀY CHO PHÙ HỢP VỚI MÁY CỦA BẠN !!!
-INPUT_ROOT_DIR = './clear'
-OUTPUT_ROOT_DIR = './foggy_anything'
-CHECKPOINT_PATH = 'depth_anything_v2_metric_vkitti_vitl.pth' # Đặt file này cùng thư mục
+INPUT_ROOT_DIR = './WIDER_face'
+OUTPUT_ROOT_DIR = './WIDER_face_foggy'
+CHECKPOINT_PATH = './depth_anything_v2_metric_vkitti_vitl.pth' # Đặt file này cùng thư mục
 
 # 2. CẤU HÌNH MODEL DEPTH
 DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
@@ -35,21 +35,12 @@ MAX_DEPTH = 80  # 80m cho mô hình ngoài trời (vkitti)
 # 3. CẤU HÌNH TẠO SƯƠNG MÙ
 # Chọn beta ngẫu nhiên trong khoảng này để tạo độ đậm nhạt sương mù khác nhau
 FOG_LEVELS = {
-    'foggy_light': {
-        'name': 'Sương mù Nhẹ',
-        'beta_min': 0.005,
-        'beta_max': 0.010
-    },
     'foggy_medium': {
         'name': 'Sương mù Vừa',
         'beta_min': 0.012,
-        'beta_max': 0.018
-    },
-    'foggy_heavy': {
-        'name': 'Sương mù Dày',
-        'beta_min': 0.020,
         'beta_max': 0.025
-    }
+    },
+
 }
 
 # ==============================================================================

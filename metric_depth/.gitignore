@@ -1,0 +1,84 @@
+# ==========================
+# 🐍 Python
+# ==========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cấu hình và cache
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# ==========================
+# 🧠 Môi trường ảo
+# ==========================
+venv/
+.env/
+.venv/
+
+# ==========================
+# 📦 Dependencies
+# ==========================
+pip-wheel-metadata/
+*.egg-info/
+*.egg
+.eggs/
+
+# ==========================
+# 🧪 Notebook & Jupyter
+# ==========================
+.ipynb_checkpoints/
+
+# ==========================
+# 🔬 PyTorch / ML Models
+# ==========================
+*.pth
+*.pt
+*.onnx
+*.ckpt
+*.weights
+
+# ==========================
+# 💾 Dataset & Outputs
+# ==========================
+*.zip
+*.tar
+*.tar.gz
+*.7z
+
+# Dataset gốc & tạo ra
+clear/
+clear_foggy/
+WIDER_face/
+WIDER_face_foggy/
+data/
+outputs/
+results/
+runs/
+logs/
+
+# ==========================
+# 🧰 IDE & Editor
+# ==========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==========================
+# 🐧 Hệ thống & OS
+# ==========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==========================
+# 🧾 Khác
+# ==========================
+# Backup và cache
+__MACOSX/
+.cache/
+temp/
