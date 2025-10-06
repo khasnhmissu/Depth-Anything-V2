@@ -112,7 +112,7 @@ def main():
         
     depth_model = DepthAnythingV2(**{**MODEL_CONFIGS[ENCODER], 'max_depth': MAX_DEPTH})
     depth_model.load_state_dict(torch.load(CHECKPOINT_PATH, map_location='cpu'))
-    depth_model = depth_model.to(DEVICE).eval()
+    depth_model = depth_model.to(DEVICE).eval().half()  # Chuyển sang half precision để tiết kiệm VRAM
     print("Tải model thành công.")
     
     # ----- 2. Lặp qua từng mức độ sương mù đã định nghĩa -----
@@ -164,7 +164,7 @@ def main():
                     print(f"\nCảnh báo: Bỏ qua file không đọc được: {image_path}")
                     continue
                 raw_img_rgb = cv2.cvtColor(raw_img_bgr, cv2.COLOR_BGR2RGB)
-                
+                raw_img_rgb = raw_img_rgb.half().to(DEVICE)
                 # 1. Tạo depth map
                 depth_map = depth_model.infer_image(raw_img_rgb)
                 torch.cuda.empty_cache()
