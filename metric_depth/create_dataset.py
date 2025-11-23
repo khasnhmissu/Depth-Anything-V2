@@ -20,8 +20,8 @@ except ImportError:
 
 # 1. ĐƯỜNG DẪN
 # !!! THAY ĐỔI CÁC ĐƯỜNG DẪN NÀY CHO PHÙ HỢP VỚI MÁY CỦA BẠN !!!
-INPUT_ROOT_DIR = './WIDER_face'
-OUTPUT_ROOT_DIR = './WIDER_face_foggy'
+INPUT_ROOT_DIR = './test-source'
+OUTPUT_ROOT_DIR = './test-target'
 CHECKPOINT_PATH = './depth_anything_v2_metric_vkitti_vitl.pth' # Đặt file này cùng thư mục
 
 # 2. CẤU HÌNH MODEL DEPTH
@@ -128,14 +128,32 @@ def main():
         print(f"Khoảng beta: [{beta_min}, {beta_max}]")
         
         # ----- 3. Bắt đầu xử lý các thư mục con (train, val, test) cho mức độ hiện tại -----
-        sub_dirs = [d for d in os.listdir(INPUT_ROOT_DIR) if os.path.isdir(os.path.join(INPUT_ROOT_DIR, d))]
+        # Hỗ trợ hai dạng cấu trúc:
+        # 1) INPUT_ROOT_DIR/images + INPUT_ROOT_DIR/labels  (không có thư mục con)
+        # 2) INPUT_ROOT_DIR/<split>/images + INPUT_ROOT_DIR/<split>/labels
+        if os.path.isdir(os.path.join(INPUT_ROOT_DIR, 'images')):
+            dataset_roots = ['']  # root chứa images/ và labels/ trực tiếp
+        else:
+            dataset_roots = [d for d in os.listdir(INPUT_ROOT_DIR) if os.path.isdir(os.path.join(INPUT_ROOT_DIR, d))]
         
-        for sub_dir in sub_dirs:
-            input_image_dir = os.path.join(INPUT_ROOT_DIR, sub_dir, 'images')
-            input_label_dir = os.path.join(INPUT_ROOT_DIR, sub_dir, 'labels')
-            
-            output_image_dir = os.path.join(current_output_root, sub_dir, 'images')
-            output_label_dir = os.path.join(current_output_root, sub_dir, 'labels')
+        for sub_dir in dataset_roots:
+            if sub_dir == '':
+                base_in = INPUT_ROOT_DIR
+                base_out = current_output_root
+            else:
+                base_in = os.path.join(INPUT_ROOT_DIR, sub_dir)
+                base_out = os.path.join(current_output_root, sub_dir)
+
+            input_image_dir = os.path.join(base_in, 'images')
+            input_label_dir = os.path.join(base_in, 'labels')
+
+            output_image_dir = os.path.join(base_out, 'images')
+            output_label_dir = os.path.join(base_out, 'labels')
+
+            # Nếu không có thư mục ảnh, bỏ qua
+            if not os.path.isdir(input_image_dir):
+                print(f"Bỏ qua: không tìm thấy thư mục ảnh: {input_image_dir}")
+                continue
             
             print(f"\n---------- Đang xử lý thư mục con: {sub_dir} ----------")
             

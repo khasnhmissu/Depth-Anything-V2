@@ -1,10 +1,10 @@
 set -e
 
 PYTHON_ENV_NAME="venv"
-DATASET_GDRIVE_ID="1XZM9RTJPQ8v1DrQXZQVMNoXGg1WeQeB5"
+DATASET_GDRIVE_ID="1jE_MKKPdecl3spctMCfQzeJf4ohObOQj"
 MODEL_GDRIVE_ID="1evX7_WtdNEQ-26TNDQADC44xWXemAxNE"
-DATASET_ZIP_NAME="clear.zip"
-DATASET_DIR_NAME="clear"
+DATASET_ZIP_NAME="test-source.zip"
+DATASET_DIR_NAME="test-source"
 
 MODEL_FILENAME="depth_anything_v2_metric_vkitti_vitl.pth" 
 
