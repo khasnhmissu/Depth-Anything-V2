@@ -35,10 +35,10 @@ MAX_DEPTH = 80  # 80m cho mô hình ngoài trời (vkitti)
 # 3. CẤU HÌNH TẠO SƯƠNG MÙ
 # Chọn beta ngẫu nhiên trong khoảng này để tạo độ đậm nhạt sương mù khác nhau
 FOG_LEVELS = {
-    'foggy_medium': {
-        'name': 'Sương mù Vừa',
-        'beta_min': 0.015,
-        'beta_max': 0.025
+    'foggy': {
+        'name': 'Sương mù',
+        'beta_min': 0.005,
+        'beta_max': 0.015
     },
 
 }
