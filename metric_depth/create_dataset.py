@@ -20,8 +20,8 @@ except ImportError:
 
 # 1. ĐƯỜNG DẪN
 # !!! THAY ĐỔI CÁC ĐƯỜNG DẪN NÀY CHO PHÙ HỢP VỚI MÁY CỦA BẠN !!!
-INPUT_ROOT_DIR = './test-source'
-OUTPUT_ROOT_DIR = './test-target'
+INPUT_ROOT_DIR = './source_real'
+OUTPUT_ROOT_DIR = './foggy-output'
 CHECKPOINT_PATH = './depth_anything_v2_metric_vkitti_vitl.pth' # Đặt file này cùng thư mục
 
 # 2. CẤU HÌNH MODEL DEPTH
@@ -79,7 +79,7 @@ def generate_foggy_image(image_rgb_float, depth_map, beta, atmosphere_light):
     """
     # Mô hình vật lý: I_foggy(x) = I_clear(x) * t(x) + A * (1 - t(x))
     # trong đó t(x) = exp(-beta * d(x)) là hệ số truyền qua (transmittance)
-    depth_smooth = cv2.GaussianBlur(depth_map, (5, 5), 0)
+    depth_smooth = cv2.GaussianBlur(depth_map.astype(np.float32), (5, 5), 0)
     # 1. Tính hệ số truyền qua (transmittance)
     transmittance = np.exp(-beta * depth_smooth)
     
@@ -182,7 +182,6 @@ def main():
                     print(f"\nCảnh báo: Bỏ qua file không đọc được: {image_path}")
                     continue
                 raw_img_rgb = cv2.cvtColor(raw_img_bgr, cv2.COLOR_BGR2RGB)
-                raw_img_rgb = raw_img_rgb.half().to(DEVICE)
                 # 1. Tạo depth map
                 depth_map = depth_model.infer_image(raw_img_rgb)
                 torch.cuda.empty_cache()

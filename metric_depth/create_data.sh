@@ -1,12 +1,12 @@
 set -e
 
 PYTHON_ENV_NAME="venv"
-DATASET_GDRIVE_ID="1jE_MKKPdecl3spctMCfQzeJf4ohObOQj"
+DATASET_GDRIVE_ID="1p_pJjOIngZ6ylbPSs2fD3Eo7QR8q5C2b"
 MODEL_GDRIVE_ID="1evX7_WtdNEQ-26TNDQADC44xWXemAxNE"
-DATASET_ZIP_NAME="test-source.zip"
-DATASET_DIR_NAME="test-source"
+DATASET_ZIP_NAME="source_real.zip"
+DATASET_DIR_NAME="source_real"
 
-MODEL_FILENAME="depth_anything_v2_metric_vkitti_vitl.pth" 
+MODEL_FILENAME="depth_anything_v2_metric_vkitti_vitl.pth"
 
 echo "apt-get update..."
 sudo apt-get update
@@ -51,11 +51,13 @@ else
         echo "Tải dataset từ Google Drive (ID: $DATASET_GDRIVE_ID)..."
         gdown -O $DATASET_ZIP_NAME $DATASET_GDRIVE_ID
     fi
-    
+
     echo "Giải nén dataset..."
     unzip -q $DATASET_ZIP_NAME
     echo "Đã giải nén xong vào thư mục '$DATASET_DIR_NAME'."
 fi
 
-echo "🔥 Bắt đầu tạo dataset..."
+echo "🔥 Bắt đầu tạo dataset sương mù..."
 python create_dataset.py
+
+echo "✅ Hoàn tất! Dataset sương mù đã được tạo trong thư mục foggy-output/"
