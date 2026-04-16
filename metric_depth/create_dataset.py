@@ -21,7 +21,7 @@ except ImportError:
 # 1. ĐƯỜNG DẪN
 # !!! THAY ĐỔI CÁC ĐƯỜNG DẪN NÀY CHO PHÙ HỢP VỚI MÁY CỦA BẠN !!!
 INPUT_ROOT_DIR = './source_real'
-OUTPUT_ROOT_DIR = './foggy-output'
+OUTPUT_ROOT_DIR = './foggy_source_real'
 CHECKPOINT_PATH = './depth_anything_v2_metric_vkitti_vitl.pth' # Đặt file này cùng thư mục
 
 # 2. CẤU HÌNH MODEL DEPTH
@@ -118,7 +118,7 @@ def main():
     # ----- 2. Lặp qua từng mức độ sương mù đã định nghĩa -----
     for level_key, level_config in FOG_LEVELS.items():
         
-        current_output_root = os.path.join(OUTPUT_ROOT_DIR, level_key)
+        current_output_root = OUTPUT_ROOT_DIR
         level_name = level_config['name']
         beta_min = level_config['beta_min']
         beta_max = level_config['beta_max']
@@ -184,8 +184,7 @@ def main():
                 raw_img_rgb = cv2.cvtColor(raw_img_bgr, cv2.COLOR_BGR2RGB)
                 # 1. Tạo depth map
                 depth_map = depth_model.infer_image(raw_img_rgb)
-                torch.cuda.empty_cache()
-                gc.collect()
+                
                 # 2. Ước lượng ánh sáng khí quyển
                 image_rgb_float = raw_img_rgb / 255.0
                 atmosphere_light = estimate_atmosphere_light(image_rgb_float)

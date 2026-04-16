@@ -1,7 +1,7 @@
+torch
 matplotlib
 opencv-python
 open3d
-torch
 torchvision
 numpy
 tqdm

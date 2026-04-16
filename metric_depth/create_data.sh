@@ -60,4 +60,6 @@ fi
 echo "🔥 Bắt đầu tạo dataset sương mù..."
 python create_dataset.py
 
-echo "✅ Hoàn tất! Dataset sương mù đã được tạo trong thư mục foggy-output/"
+echo "✅ Hoàn tất! Dataset sương mù đã được tạo trong thư mục foggy_source_real/"
+zip -r foggy_source_real.zip foggy_source_real/
+echo "Dataset đã được nén thành foggy_source_real.zip"
